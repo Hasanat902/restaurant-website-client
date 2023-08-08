@@ -1,11 +1,11 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
 
     const {signIn} = useContext(AuthContext);
@@ -24,11 +24,20 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
+            Swal.fire({
+                title: 'User Login Successful',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              })
         })
     }
 
-    const handleValidateCaptcha = () => {
-        const user_captcha_value = captchaRef.current.value;
+    const handleValidateCaptcha = (e) => {
+        const user_captcha_value = e.target.value;
         if(validateCaptcha(user_captcha_value)){
             setDisabled(false);
         }
@@ -86,13 +95,13 @@ const Login = () => {
                     <LoadCanvasTemplate />
                 </label>
                 <input
+                    onBlur={handleValidateCaptcha}
                     type="text"
-                    ref={captchaRef}
                     name="captcha"
                     placeholder="Type the above captcha"
                     className="input input-bordered"
                 />
-                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-2">Validate</button>
+                <button className="btn btn-outline btn-xs mt-2">Validate</button>
                 </div>
                 <div className="form-control mt-6">
                 <input disabled={disabled} type="submit" className="btn btn-primary" value="Login" />

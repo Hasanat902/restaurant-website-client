@@ -19,7 +19,7 @@ const NavBar = () => {
       
       {
         user ? <>
-          <button onClick={handleLogOut} className="btn btn-ghost">LogOut</button>
+          <button onClick={handleLogOut} className="btn btn-ghost btn-xs mt-2">LogOut</button>
         </> : 
         <>
           <li><Link to="/login">Login</Link></li>
