@@ -109,7 +109,7 @@ const Login = () => {
                 <button className="btn btn-outline btn-xs mt-2">Validate</button>
                 </div>
                 <div className="form-control mt-6">
-                <input disabled={false} type="submit" className="btn btn-primary" value="Login" />
+                <input disabled={disabled} type="submit" className="btn btn-primary" value="Login" />
                 </div>
             </form>
             <p><small>New Here? <Link to="/signup">Create an Account</Link></small></p>
